@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+
+import idc
+import idaapi
 import ctypes
 import ctypes.wintypes as wintypes
 

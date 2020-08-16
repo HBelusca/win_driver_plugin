@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
+
 """
 Provides functions for decoding 32 bit IOCTL codes into the constants used for them and C defines which use the CTL_CODE macro
 A bulk of the code here is taken from Satoshi Tanda's https://github.com/tandasat/WinIoCtlDecoder/blob/master/plugins/WinIoCtlDecoder.py
 """
 import idc
-
+import ida_nalt
 
 def get_device(ioctl_code):
     """Returns the correct device name for a 32 bit IOCTL code"""
@@ -137,5 +139,5 @@ def get_define(ioctl_code):
     method_name, method_code = get_method(ioctl_code)
     access_name, access_code = get_access(ioctl_code)
 
-    name = "%s_0x%08X" % (idc.GetInputFile().split('.')[0], ioctl_code)
+    name = "%s_0x%08X" % (ida_nalt.get_root_filename().split('.')[0], ioctl_code)
     return "#define %s CTL_CODE(0x%X, 0x%X, %s, %s)" % (name, device_code, function, method_name, access_name)
